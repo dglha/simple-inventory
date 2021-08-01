@@ -1,0 +1,4 @@
+Flask==1.1.1
+flask-pydantic
+flask-restful
+flask-sqlalchemy
