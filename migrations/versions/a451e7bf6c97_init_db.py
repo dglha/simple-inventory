@@ -1,16 +1,16 @@
-"""Init database
+"""init db
 
-Revision ID: 603029af5c70
+Revision ID: a451e7bf6c97
 Revises: 
-Create Date: 2021-08-01 19:27:59.024955
+Create Date: 2021-08-03 23:59:17.868075
 
 """
 from alembic import op
 import sqlalchemy as sa
-
+from sqlalchemy.dialects import postgresql
 
 # revision identifiers, used by Alembic.
-revision = '603029af5c70'
+revision = 'a451e7bf6c97'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -26,16 +26,17 @@ def upgrade():
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('customers',
-    sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('company_name', sa.String(length=128), nullable=False),
-    sa.Column('contact_name', sa.String(length=64), nullable=False),
-    sa.Column('contact_title', sa.String(length=64), nullable=False),
+    sa.Column('user_uid', sa.Integer(), nullable=False),
+    sa.Column('user_uuid', sa.String(length=64), nullable=True),
+    sa.Column('company_name', sa.String(length=128), nullable=True),
+    sa.Column('contact_name', sa.String(length=64), nullable=True),
+    sa.Column('contact_title', sa.String(length=64), nullable=True),
     sa.Column('address', sa.String(length=64), nullable=True),
     sa.Column('city', sa.String(length=16), nullable=True),
     sa.Column('country', sa.String(length=16), nullable=True),
     sa.Column('postal_code', sa.String(length=10), nullable=True),
     sa.Column('phone', sa.String(length=24), nullable=True),
-    sa.PrimaryKeyConstraint('id')
+    sa.PrimaryKeyConstraint('user_uid')
     )
     op.create_table('employees',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -67,11 +68,11 @@ def upgrade():
     )
     op.create_table('orders',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('customer_id', sa.Integer(), nullable=False),
+    sa.Column('user_uid', sa.String(length=128), nullable=False),
     sa.Column('employee_id', sa.Integer(), nullable=False),
     sa.Column('shipper_id', sa.Integer(), nullable=False),
+    sa.Column('shipping_address_id', sa.String(length=128), nullable=False),
     sa.Column('order_date', sa.DateTime(), nullable=True),
-    sa.ForeignKeyConstraint(['customer_id'], ['customers.id'], ),
     sa.ForeignKeyConstraint(['employee_id'], ['employees.id'], ),
     sa.ForeignKeyConstraint(['shipper_id'], ['shippers.id'], ),
     sa.PrimaryKeyConstraint('id')
@@ -84,6 +85,9 @@ def upgrade():
     sa.Column('quantity_per_unit', sa.String(length=32), nullable=True),
     sa.Column('unit_quoted_price', sa.Float(precision=15), nullable=True),
     sa.Column('units_in_stock', sa.SmallInteger(), nullable=True),
+    sa.Column('description', sa.Text(), nullable=True),
+    sa.Column('image', postgresql.JSONB(astext_type=sa.Text()), nullable=True),
+    sa.Column('last_edited', sa.DateTime(), nullable=True),
     sa.ForeignKeyConstraint(['category_id'], ['categories.id'], ),
     sa.ForeignKeyConstraint(['supplier_id'], ['suppliers.id'], ),
     sa.PrimaryKeyConstraint('id')
@@ -94,7 +98,7 @@ def upgrade():
     sa.Column('product_id', sa.Integer(), nullable=False),
     sa.Column('quantity', sa.SmallInteger(), nullable=False),
     sa.Column('price', sa.Float(precision=15), nullable=False),
-    sa.Column('discound', sa.Float(), nullable=True),
+    sa.Column('discount', sa.Float(), nullable=True),
     sa.ForeignKeyConstraint(['order_id'], ['orders.id'], ),
     sa.ForeignKeyConstraint(['product_id'], ['products.id'], ),
     sa.PrimaryKeyConstraint('id')

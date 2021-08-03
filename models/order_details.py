@@ -6,6 +6,6 @@ class OrderDetail(db.Model):
     product_id = db.Column(db.Integer, db.ForeignKey('products.id'), nullable = False)
     quantity = db.Column(db.SmallInteger, nullable = False)
     price = db.Column(db.Float(15), nullable = False)
-    discound = db.Column(db.Float)
+    discount = db.Column(db.Float)
 
     # One to One relationship to Products table
