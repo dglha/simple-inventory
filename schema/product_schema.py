@@ -1,6 +1,7 @@
 from typing import Optional, Text
 from pydantic import BaseModel, constr
 from pydantic.class_validators import validator
+from pydantic.types import Json
 
 class ProductBaseSchema(BaseModel):
     product_name: constr(min_length=3, max_length=128)
@@ -31,6 +32,7 @@ class ProductUpdateSchema(ProductCreateSchema):
 
 class ProductSchema(ProductBaseSchema):
     id: int
+    image: dict
 
     class Config:
         orm_mode = True

@@ -1,6 +1,8 @@
 from datetime import datetime
+from typing import List
 
 from flask import request
+from pydantic.tools import parse_obj_as
 from models.suppliers import Supplier
 from models.categories import Category
 from models.products import Product
@@ -16,7 +18,7 @@ class ProductInfo(Resource):
         product = Product.query.filter_by(id=product_id).first()
         if not product:
             return {"message": "Product not found"}, 404
-
+        print(type(product.image))
         return ProductSchema.from_orm(product)
 
     @validate(body=ProductUpdateSchema)
@@ -101,3 +103,10 @@ class Products(Resource):
         db.session.add(product)
         db.session.commit()
         return ProductSchema.from_orm(product)
+
+    @validate(response_many=True)
+    def get(self, offset = 0, limit = 11):
+        products = Product.query.offset(offset).limit(limit).all()
+        print(len(products))
+        return parse_obj_as(List[ProductSchema], products)
+        # return len(products)
