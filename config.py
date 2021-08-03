@@ -1,5 +1,10 @@
 import os
-from settings import DB_PWD
+
+DB_USERNAME = os.getenv('DB_USERNAME')
+DB_PASSWORD = os.getenv('DB_PASSWORD')
+DB_HOST = os.getenv('DB_HOST')
+DB_PORT = os.getenv('DB_PORT')
+
 class Config():
-    SQLALCHEMY_DATABASE_URI = f'postgresql://postgres:{DB_PWD}@18.190.26.255:5432/inventory'
+    SQLALCHEMY_DATABASE_URI = f'postgresql://{DB_USERNAME}:{DB_PASSWORD}@{DB_HOST}:5432/inventory'
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'digicierge inventory'
