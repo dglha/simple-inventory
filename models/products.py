@@ -2,6 +2,7 @@ from datetime import datetime
 from app import db
 from sqlalchemy import func
 from sqlalchemy.dialects.postgresql import JSONB
+from sqlalchemy.ext.mutable import MutableList
 
 class Product(db.Model):
     __tablename__ = 'products'
@@ -10,9 +11,9 @@ class Product(db.Model):
     supplier_id = db.Column(db.Integer, db.ForeignKey('suppliers.id'), nullable = False)
     category_id = db.Column(db.Integer, db.ForeignKey('categories.id'), nullable = False)
     quantity_per_unit = db.Column(db.String(32))
-    unit_quoted_price = db.Column(db.Float(15))
-    units_in_stock = db.Column(db.SmallInteger)
+    unit_quoted_price = db.Column(db.Float(15), nullable = False)
+    units_in_stock = db.Column(db.SmallInteger, default = 0)
     description = db.Column(db.Text, default = '')
-    image = db.Column(JSONB)
+    image = db.Column(MutableList.as_mutable(JSONB))
     # timestamp https://stackoverflow.com/questions/13370317/sqlalchemy-default-datetime/33532154#33532154
     last_edited = db.Column(db.DateTime, default=func.now(), onupdate=func.now())

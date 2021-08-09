@@ -1,7 +1,9 @@
-from typing import Optional, Text
+from models.products import Product
+from typing import List, Optional, Text
 from pydantic import BaseModel, constr
 from pydantic.class_validators import validator
 from pydantic.types import Json
+from . import category_schema
 
 class ProductBaseSchema(BaseModel):
     product_name: constr(min_length=3, max_length=128)
@@ -24,15 +26,28 @@ class ProductBaseSchema(BaseModel):
             raise ValueError('Units in stock must be greater than 0')
         return stock
 
+# Schema to validate request on create new product
 class ProductCreateSchema(ProductBaseSchema):
     pass
 
+# Schema to validate update product details request
 class ProductUpdateSchema(ProductCreateSchema):
     pass
 
-class ProductSchema(ProductBaseSchema):
+# Schema for product detail
+class ProductInfoSchema(ProductBaseSchema):
     id: int
-    image: dict
+    image: Optional[List[dict]]
+
+    class Config:
+        orm_mode = True
+
+# Schema for return specific field
+class ProductsSchema(BaseModel):
+    id: int
+    product_name: str
+    image: Optional[List[dict]]
+    unit_quoted_price: float
 
     class Config:
         orm_mode = True
