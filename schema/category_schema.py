@@ -10,13 +10,13 @@ from schema.shippers_schema import ShipperGetModel, ShipperPostModel
 from models.shippers import Shipper
 from app import db
 
-class CategoryPostModel(BaseModel):
+class CategoryPostSchema(BaseModel):
     category_name: constr(max_length=128, min_length=1)
     description: Optional[str]
     picture: Optional[str]
 
 # For PUT, DELETE and response
-class CategoryModel(CategoryPostModel):
+class CategorySchema(CategoryPostSchema):
     id: int
 
     @validator('id')
@@ -28,7 +28,7 @@ class CategoryModel(CategoryPostModel):
     class Config:
         orm_mode = True
 
-class CategoryQueryModel(BaseModel):
+class CategoryQuerySchema(BaseModel):
     id: int
 
     @validator('id')
