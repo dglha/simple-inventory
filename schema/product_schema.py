@@ -46,8 +46,8 @@ class ProductInfoSchema(ProductBaseSchema):
 class ProductsSchema(BaseModel):
     id: int
     product_name: str
-    image: Optional[List[dict]]
     unit_quoted_price: float
+    image: Optional[List[dict]]
 
     class Config:
         orm_mode = True
