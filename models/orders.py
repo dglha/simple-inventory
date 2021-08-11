@@ -10,6 +10,8 @@ class Order(db.Model):
     employee_id = db.Column(db.Integer, db.ForeignKey('employees.id'), nullable = False)
     shipper_id = db.Column(db.Integer, db.ForeignKey('shippers.id'), nullable = False)
     shipping_address_id = db.Column(db.String(128), nullable = False)
+    community_id = db.Column(db.String(128))
+    payment_method = db.Column(db.String(128))
     order_date = db.Column(db.DateTime(), default = func.now())
 
     # shipping address
