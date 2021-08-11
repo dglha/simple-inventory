@@ -1,4 +1,13 @@
-from actions.product_actions import add_new_image_to_product, create_new_product, delele_image_of_product, delete_product, get_images_of_product, get_product_info, get_products_list, update_product_info
+from actions.product_actions import (
+    add_new_image_to_product,
+    create_new_product,
+    delele_image_of_product,
+    delete_product,
+    get_images_of_product,
+    get_product_info,
+    get_products_list,
+    update_product_info,
+)
 from datetime import datetime
 from typing import List
 
@@ -22,10 +31,11 @@ class ProductInfo(Resource):
     # PUT method using ProductUpdateSchema to validate request
     @validate(body=ProductUpdateSchema)
     def put(self, product_id, body: ProductUpdateSchema):
-        return update_product_info(product_id, request_body = body)
+        return update_product_info(product_id, request_body=body)
 
     def delete(self, product_id):
         return delete_product(product_id)
+
 
 class Products(Resource):
     @validate()
@@ -41,7 +51,6 @@ class ProductImage(Resource):
     def post(self, product_id):
         images = request.files.getlist("image")
         return add_new_image_to_product(product_id, images=images)
-        
 
     def get(self, product_id):
         get_images_of_product(product_id)
