@@ -13,7 +13,7 @@ class EmployeeCreateSchema(BaseModel):
 class EmployeeUpdateSchema(EmployeeCreateSchema):
     pass
 
-class EmployeeSchema(EmployeeCreateSchema):
+class EmployeeInfoSchema(EmployeeCreateSchema):
     id: int
 
     class Config:

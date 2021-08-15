@@ -5,22 +5,13 @@ from actions.product_actions import (
     delete_product,
     get_images_of_product,
     get_product_info,
-    get_products_list,
+    get_product_list,
     update_product_info,
 )
-from datetime import datetime
-from typing import List
-
 from flask import request
-from pydantic.tools import parse_obj_as
-from models.suppliers import Supplier
-from models.categories import Category
-from models.products import Product
 from flask_restful import Resource
 from flask_pydantic import validate
 from schema.product_schema import *
-from app import db
-from utils import imagekit_utils
 
 
 class ProductInfo(Resource):
@@ -44,7 +35,7 @@ class Products(Resource):
 
     @validate(response_many=True)
     def get(self, offset=0, limit=11):
-        return get_products_list(offset, limit)
+        return get_product_list(offset, limit)
 
 
 class ProductImage(Resource):
@@ -53,8 +44,8 @@ class ProductImage(Resource):
         return add_new_image_to_product(product_id, images=images)
 
     def get(self, product_id):
-        get_images_of_product(product_id)
+        return get_images_of_product(product_id)
 
     def delete(self, product_id):
         file_id = request.json["file_id"]
-        delele_image_of_product(product_id, image_id=file_id)
+        return delele_image_of_product(product_id, image_id=file_id)

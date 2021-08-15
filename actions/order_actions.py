@@ -123,12 +123,16 @@ def create_new_order(order_request: OrderCreateSchema):
         db.session.rollback()
         print("Error:" + str(e))
         return {
-            "message": "An error has occurred, order cancelled",
-            "error": str(e),
+            "error": "An error has occurred, order cancelled",
+            "message": str(e),
         }, 500
 
     return {"message": "Order successfully", "order_id": order.id}, 200
 
+
+"""
+    ACTIONS
+"""
 
 def get_order_info(order_id):
     order = Order.query.filter_by(id=order_id).first()

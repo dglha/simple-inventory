@@ -145,7 +145,7 @@ def delete_product(product_id):
 """
 
 
-def get_products_list(offset, limit):
+def get_product_list(offset, limit):
     products = Product.query.offset(offset).limit(limit).all()
     return parse_obj_as(List[ProductsSchema], products)
 

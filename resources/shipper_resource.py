@@ -1,27 +1,25 @@
+from actions.shippper_actions import create_new_shipper, delete_shipper, get_shipper_info, update_shipper_info
 from typing import List
 from flask_restful import Resource
 from pydantic import parse_obj_as
 from flask_pydantic import validate
-from schema.shippers_schema import ShipperGetModel, ShipperPostModel
+from schema.shippers_schema import ShipperCreateSchema, ShipperUpdateSchema
 from models.shippers import Shipper
 from app import db
 
 class ShipperInfo(Resource):
-    @validate(body=ShipperPostModel)
-    def post(self, body: ShipperPostModel):
-        shipper = Shipper(**body.dict())
-        db.session.add(shipper)
-        db.session.commit()
-        return ShipperGetModel.from_orm(shipper)
+    @validate()
+    def get(self, shipper_id):
+        return get_shipper_info(shipper_id)
 
-    @validate(query=ShipperGetModel)
-    def get(self, query: ShipperGetModel):
-        shipper = Shipper.query.filter_by(id=query.id).first()
-        return ShipperGetModel.from_orm(shipper)
+    @validate(body=ShipperUpdateSchema)
+    def put(self, shipper_id, body: ShipperUpdateSchema):
+        return update_shipper_info(shipper_id, body)
+
+    def delete(self, shipper_id):
+        return delete_shipper(shipper_id)
 
 class Shippers(Resource):
-        @validate(response_many=True)
-        def get(self, offset = 0, limit = 10):
-            shippers = Shipper.query.offset(offset).limit(limit).all()
-
-            return parse_obj_as(List[ShipperGetModel], shippers)
+    @validate(body=ShipperCreateSchema)
+    def post(self, body: ShipperCreateSchema):
+        return create_new_shipper(body)

@@ -1,3 +1,4 @@
+from actions.supplier_actions import create_new_supplier, delete_supplier, get_supplier_info, get_supplier_products, update_supplier_info
 from schema.product_schema import ProductsSchema
 from typing import List
 from pydantic.tools import parse_obj_as
@@ -7,68 +8,31 @@ from models.suppliers import Supplier
 from flask_restful import Resource
 from flask_pydantic import validate
 from schema.supplier_schema import *
+from flask import request
 from app import db
 
 class SupplierInfo(Resource):
     @validate()
     def get(self, supplier_id):
-        sup = Supplier.query.filter_by(id = supplier_id).first()
-        if not sup:
-            return {
-                'message': 'Supplier not found'
-            }
-        return SupplierInfoSchema.from_orm(sup)
+        return get_supplier_info(supplier_id)
 
     @validate(body=SuppplierUpdateSchema)
     def put(self, supplier_id, body: SuppplierUpdateSchema):
-        sup = Supplier.query.filter_by(id = supplier_id).first()
-        if not sup:
-            return {
-                'message': 'Supplier not found'
-            }
-        
-        sup.company_name = body.company_name
-        sup.contact_name = body.contact_name
-        sup.contact_title = body.contact_title
-        sup.address = body.address
-        sup.city = body.city
-        sup.country = body.country
-        sup.postal_code = body.postal_code
-        sup.phone = body.phone
-        sup.homepage = body.homepage
-
-        db.session.add(sup)
-        db.session.commit()
-
-        return SupplierInfoSchema.from_orm(sup)
+        return update_supplier_info(supplier_id, body)
 
     def delete(self, supplier_id):
-        sup = Supplier.query.filter_by(id = supplier_id).first()
-        if not sup:
-            return {
-                'message': 'Supplier not found'
-            }
-        db.session.delete(sup)
-        db.session.commit()
-
-        return {
-            'message': 'Supplier deleted'
-        }
+        return delete_supplier(supplier_id)
 
 class Suppliers(Resource):
     @validate(body=SupplierCreateSchema)
     def post(self, body: SupplierCreateSchema):
-        sup = Supplier(**body.dict())
-        db.session.add(sup)
-        db.session.commit()
-
-        return SupplierInfoSchema.from_orm(sup)
+        return create_new_supplier(body)
 
 class SupplierProduct(Resource):
-    @validate(response_many=True)
-    def get(self, supplier_id, page = 0, limit = 10):
-        sup = Supplier.query.filter_by(id = supplier_id).first()
-        if sup is None:
-            return {"message": "Supplier not found"}, 404
-        products = Product.query.filter_by(supplier_id = sup.id).offset(limit * page).limit(limit).all()
-        return parse_obj_as(List[ProductsSchema], products)
+    # @validate(response_many=True)
+    @validate()
+    def get(self, supplier_id, page = 0, limit = 5):
+        page = request.args.get('page', 0, type=int)
+        if page <= 0:
+            page = 1
+        return get_supplier_products(supplier_id, page, limit)

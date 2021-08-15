@@ -1,14 +1,9 @@
 from pydantic.types import constr
 from models.categories import Category
 from typing import List, Optional
-from flask_restful import Resource
-from pydantic import parse_obj_as
 from pydantic import validator
-from flask_pydantic import validate
 from pydantic.main import BaseModel
-from schema.shippers_schema import ShipperGetModel, ShipperPostModel
-from models.shippers import Shipper
-from app import db
+
 
 class CategoryPostSchema(BaseModel):
     category_name: constr(max_length=128, min_length=1)

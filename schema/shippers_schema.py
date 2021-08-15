@@ -2,11 +2,11 @@ from typing import Optional
 from pydantic import BaseModel, validator
 from pydantic.types import constr
 
-class ShipperPostModel(BaseModel):
+class ShipperBaseSchema(BaseModel):
     company_name: constr(max_length=128, min_length=5)
     phone: constr(max_length=15)
 
-class ShipperGetModel(BaseModel):
+class ShipperInfoSchema(BaseModel):
     id: int
     company_name: Optional[str]
     phone: Optional[str]
@@ -19,3 +19,9 @@ class ShipperGetModel(BaseModel):
 
     class Config:
         orm_mode = True
+
+class ShipperCreateSchema(ShipperBaseSchema):
+    pass
+
+class ShipperUpdateSchema(ShipperBaseSchema):
+    pass
