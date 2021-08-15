@@ -41,8 +41,8 @@ from resources.supplier_resource import SupplierInfo, Suppliers, SupplierProduct
 from resources.product_resource import ProductInfo, Products, ProductImage
 from resources.order_resource import Orders, OrderInfo
 
-api.add_resource(ShipperInfo, '/shipper')
-api.add_resource(Shippers, '/shippers')
+api.add_resource(Shippers, '/shipper')
+api.add_resource(ShipperInfo, '/shipper/<int:shipper_id>')
 
 api.add_resource(CategoryInfo, '/category/<int:category_id>')
 api.add_resource(Categories, '/category')
