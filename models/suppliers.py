@@ -14,6 +14,7 @@ class Supplier(db.Model):
     postal_code = db.Column(db.String(10))
     phone = db.Column(db.String(24))
     homepage = db.Column(db.Text)
+    email = db.Column(db.String(128))
 
     # One to many relationship to Products table
     products = db.relationship(Product, backref = 'supplier')
