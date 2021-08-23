@@ -1,5 +1,5 @@
 from app import db
-from models.orders import Order
+from models.order import Order
 
 class Customer(db.Model):
     __tablename__ = 'customer'

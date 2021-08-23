@@ -1,5 +1,5 @@
 from sqlalchemy.orm import backref
-from models.products import Product
+from models.product import Product
 from app import db
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.ext.mutable import MutableDict

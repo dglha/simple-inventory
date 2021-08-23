@@ -1,6 +1,6 @@
 from app import db
 from schema.customer_schema import CustomerCreateSchema, CustomerSchema, CustomerUpdateSchema
-from models.customers import Customer
+from models.customer import Customer
 from typing import List
 from flask_restful import Resource
 from pydantic import parse_obj_as

@@ -4,4 +4,5 @@
 # User uuid -> Key (Mongo)
 # match
 
-# 
+13-8-2020
+# Seller table: Danh sách ngưỜi bán hàng (Shops): Email, ten

@@ -2,9 +2,9 @@ from actions.supplier_actions import create_new_supplier, delete_supplier, get_s
 from schema.product_schema import ProductsSchema
 from typing import List
 from pydantic.tools import parse_obj_as
-from models.products import Product
+from models.product import Product
 import flask_pydantic
-from models.suppliers import Supplier
+from models.supplier import Supplier
 from flask_restful import Resource
 from flask_pydantic import validate
 from schema.supplier_schema import *
@@ -24,9 +24,9 @@ class SupplierInfo(Resource):
         return delete_supplier(supplier_id)
 
 class Suppliers(Resource):
-    @validate(body=SupplierCreateSchema)
-    def post(self, body: SupplierCreateSchema):
-        return create_new_supplier(body)
+    @validate
+    def post(self):
+        return create_new_supplier()
 
 class SupplierProduct(Resource):
     # @validate(response_many=True)

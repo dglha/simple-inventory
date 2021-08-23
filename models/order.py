@@ -1,5 +1,5 @@
 from app import db
-from models.order_details import OrderDetail
+from models.order_detail import OrderDetail
 from datetime import datetime
 from sqlalchemy import func
 class Order(db.Model):

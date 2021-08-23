@@ -1,4 +1,4 @@
-from models.shippers import Shipper
+from models.shipper import Shipper
 from schema.shippers_schema import ShipperCreateSchema, ShipperInfoSchema, ShipperUpdateSchema
 from app import db
 

@@ -1,5 +1,5 @@
 from pydantic import BaseModel, constr
-from typing import Optional, Text
+from typing import Dict, Optional, Text
 
 from pydantic.networks import EmailStr
 
@@ -14,6 +14,7 @@ class SupplierBaseSchema(BaseModel):
     phone: Optional[constr(max_length=24)]
     homepage: Optional[Text]
     email: Optional[EmailStr]
+    image: Optional[Dict]
 
 class SupplierInfoSchema(SupplierBaseSchema):
     id: int

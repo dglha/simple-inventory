@@ -1,6 +1,6 @@
 from pydantic.tools import parse_obj_as
 from schema.product_schema import ProductsSchema
-from models.products import Product
+from models.product import Product
 from schema.category_schema import *
 from app import db
 
@@ -17,7 +17,7 @@ def create_new_category(category_request: CategoryPostSchema):
 
 
 def delete_category(category_id):
-    category = Category.query.filter_by(id=id).first()
+    category = Category.query.filter_by(id=category_id).first()
     if not category:
         return {"message": "Category not found"}, 404
     db.session.delete(category)
@@ -55,6 +55,7 @@ def get_category_products(categroy_id: int, term: str, offset: int, limit: int):
     )
     return parse_obj_as(List[ProductsSchema], products)
 
-def get_category_list(offset:int , limit: int):
+
+def get_category_list(offset: int, limit: int):
     categories = Category.query.offset(offset).limit(limit).all()
     return parse_obj_as(List[CategorySchema], categories)

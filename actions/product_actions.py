@@ -4,9 +4,9 @@ from werkzeug.datastructures import FileStorage
 
 from app import db
 from flask import request
-from models.categories import Category
-from models.products import Product
-from models.suppliers import Supplier
+from models.category import Category
+from models.product import Product
+from models.supplier import Supplier
 from pydantic.tools import parse_obj_as
 from schema.product_schema import ProductInfoSchema, ProductsSchema, ProductUpdateSchema
 from utils import imagekit_utils

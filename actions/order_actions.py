@@ -1,9 +1,9 @@
 from settings import MONGO_BE_URL
-from models.products import Product
+from models.product import Product
 from app import db
 from schema.order_schema import OrderCreateSchema, OrderInfoSchema
-from models.orders import Order
-from models.order_details import OrderDetail
+from models.order import Order
+from models.order_detail import OrderDetail
 import requests
 
 """

@@ -24,13 +24,13 @@ imagekit = ImageKit(
     url_endpoint=IMAGEKIT_URL
 )
 
-from models.employees import Employee
-from models.customers import Customer
-from models.shippers import Shipper
-from models.categories import Category
-from models.products import Product
-from models.suppliers import Supplier
-from models.order_details import OrderDetail
-from models.orders import Order
+from models.employee import Employee
+from models.customer import Customer
+from models.shipper import Shipper
+from models.category import Category
+from models.product import Product
+from models.supplier import Supplier
+from models.order_detail import OrderDetail
+from models.order import Order
 
 import routes

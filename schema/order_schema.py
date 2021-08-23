@@ -1,4 +1,4 @@
-from models.order_details import OrderDetail
+from models.order_detail import OrderDetail
 from typing import Optional, List
 from pydantic import BaseModel, constr
 

@@ -1,8 +1,8 @@
 from actions.order_actions import create_new_order, get_order_info
 from pydantic.tools import parse_obj_as
-from models.order_details import OrderDetail
-from models.orders import Order
-from models.products import Product
+from models.order_detail import OrderDetail
+from models.order import Order
+from models.product import Product
 from flask_pydantic import validate
 from flask_restful import Resource
 from schema.order_schema import *

@@ -1,5 +1,5 @@
 from sqlalchemy.orm import backref
-from models.orders import Order
+from models.order import Order
 from app import db
 
 class Shipper(db.Model):

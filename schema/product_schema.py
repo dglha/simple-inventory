@@ -1,4 +1,4 @@
-from models.products import Product
+from models.product import Product
 from typing import List, Optional, Text
 from pydantic import BaseModel, constr
 from pydantic.class_validators import validator

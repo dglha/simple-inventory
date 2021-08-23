@@ -3,17 +3,17 @@ from pydantic import BaseModel
 from pydantic.types import constr
 from datetime import date
 
-class EmployeeCreateSchema(BaseModel):
+class EmployeeBaseSchema(BaseModel):
     last_name: constr(min_length=2, max_length=64)
     first_name: constr(min_length=2, max_length=64)
     birth_date: Optional[date]
     phone: Optional[constr(max_length=32)]
     photo: Optional[constr(max_length=128)]
 
-class EmployeeUpdateSchema(EmployeeCreateSchema):
+class EmployeeUpdateSchema(EmployeeBaseSchema):
     pass
 
-class EmployeeInfoSchema(EmployeeCreateSchema):
+class EmployeeInfoSchema(EmployeeBaseSchema):
     id: int
 
     class Config:

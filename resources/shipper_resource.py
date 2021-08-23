@@ -4,7 +4,7 @@ from flask_restful import Resource
 from pydantic import parse_obj_as
 from flask_pydantic import validate
 from schema.shippers_schema import ShipperCreateSchema, ShipperUpdateSchema
-from models.shippers import Shipper
+from models.shipper import Shipper
 from app import db
 
 class ShipperInfo(Resource):

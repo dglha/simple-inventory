@@ -1,4 +1,4 @@
-from models.orders import Order
+from models.order import Order
 from sqlalchemy.orm import backref
 from app import db
 from sqlalchemy.dialects.postgresql import JSONB

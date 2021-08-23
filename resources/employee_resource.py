@@ -4,7 +4,7 @@ from actions.employee_actions import (
     get_employee_info,
     update_employee_info,
 )
-from models.employees import Employee
+from models.employee import Employee
 from flask_restful import Resource
 from flask_pydantic import validate
 from schema.employee_schema import *
@@ -25,6 +25,6 @@ class EmployeeInfo(Resource):
 
 
 class Employees(Resource):
-    @validate(body=EmployeeCreateSchema)
-    def post(self, body: EmployeeCreateSchema):
-        create_new_employee(body)
+    @validate()
+    def post(self):
+        return create_new_employee()

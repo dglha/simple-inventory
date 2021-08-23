@@ -1,5 +1,5 @@
 from pydantic.types import constr
-from models.categories import Category
+from models.category import Category
 from typing import List, Optional
 from pydantic import validator
 from pydantic.main import BaseModel
