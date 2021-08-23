@@ -15,7 +15,7 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config.from_object(Config)
 db = SQLAlchemy(app, session_options={"autoflush": False})
-migrate = Migrate(app, db)
+migrate = Migrate(app, db, compare_type=True)
 api = Api(app)
 
 imagekit = ImageKit(

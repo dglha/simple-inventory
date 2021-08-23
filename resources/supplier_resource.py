@@ -24,7 +24,7 @@ class SupplierInfo(Resource):
         return delete_supplier(supplier_id)
 
 class Suppliers(Resource):
-    @validate
+    @validate()
     def post(self):
         return create_new_supplier()
 

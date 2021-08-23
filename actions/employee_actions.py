@@ -26,6 +26,7 @@ def create_new_employee():
     if not is_valid_phone(phone):
         return {"message": "Invalid phone number"}, 400
 
+    image_json = []
     if image:
         image_json = imagekit_utils.upload_image(image)
         if image_json["error"] is not None:
