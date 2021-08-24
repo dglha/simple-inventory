@@ -32,5 +32,6 @@ from models.product import Product
 from models.supplier import Supplier
 from models.order_detail import OrderDetail
 from models.order import Order
+from models.transfer import Transfer
 
 import routes
